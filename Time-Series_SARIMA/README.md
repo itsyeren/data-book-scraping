@@ -1,0 +1,1 @@
+SARIMA modellerinin gücünden yararlanarak yüksek mevsimsel zaman serilerini manuel mevsimsel ayrıştırma yapmadan tahmin edelim!
