@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from olist import data
 from olist.utils import haversine_distance
 from olist.data import Olist
 
@@ -67,7 +68,14 @@ class Order:
         Returns a DataFrame with:
         order_id, number_of_items
         """
-        pass  # YOUR CODE HERE
+        orders = self.data["order_items"].copy()
+        get_number_items = (
+	    orders.groupby('order_id')
+	    .agg(number_of_items=('order_item_id', 'count'))
+	    .reset_index()
+        )
+        return get_number_items
+
 
     def get_number_sellers(self):
         """
