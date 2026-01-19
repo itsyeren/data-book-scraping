@@ -127,4 +127,16 @@ class Order:
         'distance_seller_customer']
         """
         # Hint: make sure to re-use your instance methods defined above
-        pass  # YOUR CODE HERE
+        training_data = self.get_wait_time(is_delivered=is_delivered) \
+            .merge(self.get_review_score(), on="order_id", how="inner") \
+            .merge(self.get_number_items(), on="order_id", how="inner") \
+            .merge(self.get_number_sellers(), on="order_id", how="inner") \
+            .merge(self.get_price_and_freight(), on="order_id", how="inner")
+
+        if with_distance_seller_customer:
+            training_data = training_data.merge(
+                self.get_distance_seller_customer(), on="order_id", how="inner"
+            )
+
+        training_data = training_data.dropna()
+        return training_data
